@@ -1,0 +1,6 @@
+flask==3.0.0
+requests==2.31.0
+pandas==2.1.4
+textblob==0.17.1
+pillow==10.1.0
+qrcode==7.4.2

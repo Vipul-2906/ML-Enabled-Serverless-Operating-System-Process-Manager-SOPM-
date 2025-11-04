@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: image-builder
+  namespace: sopm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: image-builder
+  template:
+    metadata:
+      labels:
+        app: image-builder
+    spec:
+      serviceAccountName: builder-sa
+      containers:
+      - name: image-builder
+        image: sopm-image-builder:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8000
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "200m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: image-builder-service
+  namespace: sopm
+spec:
+  selector:
+    app: image-builder
+  ports:
+  - port: 8000
+    targetPort: 8000
+  type: ClusterIP

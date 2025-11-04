@@ -1,0 +1,66 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-init
+  namespace: sopm
+data:
+  init.sql: |
+    CREATE TABLE IF NOT EXISTS jobs (
+        id SERIAL PRIMARY KEY,
+        function_name VARCHAR(100) NOT NULL,
+        payload JSONB,
+        status VARCHAR(20) DEFAULT 'pending',
+        result TEXT,
+        execution_time_ms FLOAT,
+        created_at TIMESTAMP DEFAULT NOW(),
+        completed_at TIMESTAMP
+    );
+    CREATE INDEX idx_status ON jobs(status);
+    CREATE INDEX idx_created_at ON jobs(created_at);
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+  namespace: sopm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:15-alpine
+        env:
+        - name: POSTGRES_DB
+          value: sopm
+        - name: POSTGRES_USER
+          value: postgres
+        - name: POSTGRES_PASSWORD
+          value: sopmpass123
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - name: init-script
+          mountPath: /docker-entrypoint-initdb.d
+      volumes:
+      - name: init-script
+        configMap:
+          name: postgres-init
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-service
+  namespace: sopm
+spec:
+  selector:
+    app: postgres
+  ports:
+  - port: 5432
+    targetPort: 5432

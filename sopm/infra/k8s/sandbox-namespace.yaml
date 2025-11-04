@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: sopm-sandbox
+  labels:
+    name: sopm-sandbox
+    security: restricted
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: sandbox-quota
+  namespace: sopm-sandbox
+spec:
+  hard:
+    requests.cpu: "10"
+    requests.memory: "10Gi"
+    limits.cpu: "20"
+    limits.memory: "20Gi"
+    persistentvolumeclaims: "0"
+    pods: "50"

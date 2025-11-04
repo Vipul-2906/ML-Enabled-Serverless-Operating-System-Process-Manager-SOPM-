@@ -1,0 +1,89 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #1e1e2f;
+    color: #f0f0f0;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #2e2e3e;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+th, td {
+    padding: 12px;
+    text-align: center;
+}
+
+th {
+    background-color: #3a3a4d;
+}
+
+td {
+    border-bottom: 1px solid #444;
+}
+
+.status-running {
+    color: #00ff00;
+    font-weight: bold;
+}
+
+.status-stopped {
+    color: #ff4d4d;
+    font-weight: bold;
+}
+
+.progress-bar {
+    width: 100px;
+    height: 10px;
+    background: #444;
+    border-radius: 5px;
+    overflow: hidden;
+    margin: auto;
+}
+
+.progress {
+    height: 100%;
+    border-radius: 5px;
+    transition: width 0.4s ease;
+}
+
+.cpu-bar {
+    background: #4caf50;
+}
+
+.memory-bar {
+    background: #2196f3;
+}
+
+button {
+    padding: 5px 10px;
+    margin: 2px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+button.start {
+    background-color: #4caf50;
+    color: white;
+}
+
+button.stop {
+    background-color: #f44336;
+    color: white;
+}
