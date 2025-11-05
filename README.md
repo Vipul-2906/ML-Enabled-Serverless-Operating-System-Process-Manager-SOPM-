@@ -59,7 +59,7 @@ sopm/
 
 ```bash
 # Start Minikube
-minikube start --memory=8192 --cpus=4
+minikube start 
 
 # Verify setup
 kubectl version
@@ -88,6 +88,7 @@ kubectl port-forward -n sopm service/gateway-service 8080:80
 
 # Terminal 2: Run tests
 ./test.sh
+./test_user_upload.sh
 ./benchmark.sh
 ```
 
@@ -109,6 +110,7 @@ kubectl port-forward -n sopm service/gateway-service 8080:80
 | POST | `/api/user-functions` | Upload new user function |
 | GET | `/api/user-functions?user_id=xxx` | List user functions |
 | POST | `/api/user-functions/:id/execute` | Execute uploaded function |
+| GET | `/api/status/<job-id>` | Check Result |
 
 ---
 
@@ -125,7 +127,6 @@ kubectl port-forward -n sopm service/gateway-service 8080:80
 ## 🤝 Contributors
 
 - **Vipul Kumar** — Project Lead & Developer  
-- Special thanks to **Graphic Era (Deemed to be University)** for infrastructure and guidance.
 
 ---
 
